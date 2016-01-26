@@ -2,7 +2,6 @@
 
     var currentQuestion = null;
 
-
     $('#questionanswerholder').on('show.bs.modal', function (e) {
         var modal = $(this);
         var a = $(e.relatedTarget);
@@ -22,6 +21,36 @@
         var modal = $(this);
         var pointValue = modal.find("input#point-value");
         pointValue.val(0);
+        $(".question-container").removeClass("animate flipInY").addClass("hidden");
+        $(".answer-container").removeClass("animated flipOutY");
+    });
+
+
+    $('.answer-container').click(function(e){
+        $(this).addClass("animated flipOutY");
+        $(".question-container").removeClass("hidden").addClass("animated flipInY");
+    });
+
+    $("#doScore").submit(function( event ) {
+        event.preventDefault();
+
+        var results = $(this).serializeArray();
+
+        console.log(results[1].value, results);
+
+        if(parseInt(results[1].value)) {
+
+            //Record the users score
+            var span = $('#team-score-'+results[0].value).find('span');
+            var currentScore = parseInt(span.text());
+            currentScore+=parseInt(results[2].value);
+            span.text(currentScore);
+
+        }
+
+        $('#questionanswerholder').modal("hide");
+        $(currentQuestion).parent().addClass("disabled");
+        currentQuestion = null;
     });
 
 

@@ -30,16 +30,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Project name</a>
+                    <a class="navbar-brand" href="#">SDLCpardy</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="team-score" data-team="1"><a>Team 1</a></li>
-                        <li class="team-score" data-team="2"><a>Team 2</a></li>
-                        <li class="team-score" data-team="3"><a>Team 3</a></li>
-                        <li class="team-score" data-team="4"><a>Team 4</a></li>
-                        <li class="team-score" data-team="5"><a>Team 5</a></li>
-                        <li class="team-score" data-team="6"><a>Team 6</a></li>
+                        <li class="team-score" id="team-score-1"><a>Team 1: <span class="score">0</span></a></li>
+                        <li class="team-score" id="team-score-2"><a>Team 2: <span class="score">0</span></a></li>
+                        <li class="team-score" id="team-score-3"><a>Team 3: <span class="score">0</span></a></li>
+                        <li class="team-score" id="team-score-4"><a>Team 4: <span class="score">0</span></a></li>
+                        <li class="team-score" id="team-score-5"><a>Team 5: <span class="score">0</span></a></li>
+                        <li class="team-score" id="team-score-6"><a>Team 6: <span class="score">0</span></a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="btn btn-warning">Reset</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -50,55 +54,24 @@
             <div class="main-container">
 
                 <div class="row">
-                    <div class="col-md-2 col-md-offset-1 jeopardy-panel jeopardy-body-header">Analyze</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body-header">Design</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body-header">Develop</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body-header">Testing</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body-header">Finalize</div>
+                    {% for category in jeopardy.questions %}
+                        <div class="col-md-2 {% if loop.first %}col-md-offset-1{% endif %} jeopardy-panel jeopardy-body-header">{{ category.name }}</div>
+                    {% endfor %}
                 </div>
 
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-1 jeopardy-panel jeopardy-body">
-                        <a data-toggle="modal" data-target="#questionanswerholder" data-jeopardy-value="200" data-jeopardy-question="Test Question" data-jeopardy-answer="Test Answer">$ 200</a>
+                {% for question in 0..jeopardy.questions|length-1 %}
+                <div class="row questions-{{ question }}">
+                    {% for item in 0..jeopardy.questions|length-1 %}
+                    <div class="col-md-2 {% if item==0 %}col-md-offset-1{% endif %} jeopardy-panel jeopardy-body" id="question-{{ question }}-{{ item }}">
+                        <a data-toggle="modal"
+                           data-target="#questionanswerholder"
+                           data-jeopardy-value="{{ jeopardy.questions[item].values[question].points }}"
+                           data-jeopardy-question="{{ jeopardy.questions[item].values[question].question }}"
+                           data-jeopardy-answer="{{ jeopardy.questions[item].values[question].answer }}">$ {{ jeopardy.questions[item].values[question].points }}</a>
                     </div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="200">$ 200</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="200">$ 200</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="200">$ 200</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="200">$ 200</div>
+                    {% endfor %}
                 </div>
-
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-1 jeopardy-panel jeopardy-body" data-jeopardy-value="400">$ 400</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="400">$ 400</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="400">$ 400</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="400">$ 400</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="400">$ 400</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-1 jeopardy-panel jeopardy-body" data-jeopardy-value="600">$ 600</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="600">$ 600</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="600">$ 600</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="600">$ 600</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="600">$ 600</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-1 jeopardy-panel jeopardy-body" data-jeopardy-value="800">$ 800</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="800">$ 800</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="800">$ 800</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="800">$ 800</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="800">$ 800</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-1 jeopardy-panel jeopardy-body" data-jeopardy-value="1000">$ 1000</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="1000">$ 1000</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="1000">$ 1000</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="1000">$ 1000</div>
-                    <div class="col-md-2 jeopardy-panel jeopardy-body" data-jeopardy-value="1000">$ 1000</div>
-                </div>
-
+                {% endfor %}
 
                 <div class="modal fade" tabindex="-1" role="dialog" id="questionanswerholder">
                     <div class="modal-dialog">
@@ -108,12 +81,12 @@
                                     <p class="answer"></p>
                                 </div>
 
-                                <div class="question-container">
+                                <div class="question-container hidden">
                                     <p class="question"></p>
 
-                                    <form class="doScore">
+                                    <form id="doScore">
                                         <label> Team
-                                            <select class="select_team">
+                                            <select class="select_team" name="team">
                                                 <option value="1">Team 1</option>
                                                 <option value="2">Team 2</option>
                                                 <option value="3">Team 3</option>
@@ -122,8 +95,6 @@
                                                 <option value="6">Team 6</option>
                                             </select>
                                         </label>
-
-                                        <input type="hidden" id="point-value">
 
                                         <div class="radio">
                                             <label>
@@ -137,6 +108,9 @@
                                                 Incorrect
                                             </label>
                                         </div>
+
+                                        <input type="hidden" name="points" id="point-value">
+                                        <input type="submit" value="Submit Score">
                                     </form>
 
                                 </div>

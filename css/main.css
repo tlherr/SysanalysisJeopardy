@@ -319,9 +319,11 @@ textarea {
 
 }
 
-.jeopardy-body {
-
-    -moz-animation-duration: 3s;
-    -moz-animation-delay: 2s;
-    -moz-animation-iteration-count: 1;
+.jeopardy-body.disabled {
+    color: rgb(7,16,115);
 }
+
+.jeopardy-body.disabled a {
+    display: none;
+}
+
