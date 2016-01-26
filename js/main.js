@@ -17,6 +17,20 @@
 
         var pointValue = modal.find("input#point-value");
         pointValue.val(a.data('jeopardy-value'));
+
+        var date = new Date();
+        console.log(date);
+        date.setSeconds(date.getSeconds() + 20);
+        console.log(date);
+        $('#clock').countdown(date, function(event) {
+            console.log(event.type);
+            $(this).html(event.strftime('%S'));
+
+            if(event.type==="finish") {
+                new Audio('/audio/time.mp3').play()
+            }
+        });
+
     }).on('hide.bs.modal', function(e) {
         var modal = $(this);
         var pointValue = modal.find("input#point-value");

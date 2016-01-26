@@ -319,6 +319,10 @@ textarea {
 
 }
 
+.jeopardy-body a {
+    color: rgb(235,167,89);
+}
+
 .jeopardy-body.disabled {
     color: rgb(7,16,115);
 }
