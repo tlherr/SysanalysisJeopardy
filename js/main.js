@@ -50,17 +50,18 @@
 
         var results = $(this).serializeArray();
 
-        console.log(results[1].value, results);
+        var correct = parseInt(results[1].value);
+        var span = $('#team-score-'+results[0].value).find('span');
+        var currentScore = parseInt(span.text());
 
-        if(parseInt(results[1].value)) {
-
-            //Record the users score
-            var span = $('#team-score-'+results[0].value).find('span');
-            var currentScore = parseInt(span.text());
+        if(correct==1) {
             currentScore+=parseInt(results[2].value);
-            span.text(currentScore);
-
+        } else if(correct==0) {
+            currentScore-=parseInt(results[2].value);
         }
+
+        span.text(currentScore);
+
 
         $('#questionanswerholder').modal("hide");
         $(currentQuestion).parent().addClass("disabled");
